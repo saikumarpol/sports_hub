@@ -1,9 +1,10 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key'  # Required for flash messages
 
-# Routes for each page
+# Routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -30,5 +31,7 @@ def contact():
         return redirect(url_for('contact'))
     return render_template('contact.html')
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use Render's port or default 5000
+    app.run(host="0.0.0.0", port=port, debug=True)
