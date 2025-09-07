@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Sports Hub – Live Scores{% endblock %}
+{% block content %}
+<section class="container">
+  <h2 class="section-title">Kabaddi Matches</h2>
+
+  <!-- Completed/Live Match Card -->
+  <div class="score-card-pro">
+    <!-- Left Team -->
+    <div class="team-section left-team">
+      <img src="{{ url_for('static', filename='images/umumba.png') }}" alt="U Mumba Logo" class="team-logo">
+      <h3 class="team-name">U Mumba</h3>
+    </div>
+
+    <!-- Score -->
+    <div class="score-section">
+      <span class="score-number">36</span>
+      <span class="vs">vs</span>
+      <span class="score-number">33</span>
+      <p class="match-status">OnGoing</p>
+    </div>
+
+    <!-- Right Team -->
+    <div class="team-section right-team">
+      <img src="{{ url_for('static', filename='images/ttt.png') }}" alt="Tamil Thalaivas Logo" class="team-logo">
+      <h3 class="team-name">Tamil Thalaivas</h3>
+    </div>
+  </div>
+
+  <!-- Upcoming Match Card -->
+  <div class="score-card-pro upcoming">
+    <!-- Left Team -->
+    <div class="team-section left-team">
+      <img src="{{ url_for('static', filename='images/pp.png') }}" alt="Patna Pirates Logo" class="team-logo">
+      <h3 class="team-name">Patna Pirates</h3>
+    </div>
+
+    <!-- Upcoming Info -->
+    <div class="score-section">
+      <span class="vs">vs</span>
+      <p class="match-status">⏳ Will start soon</p>
+    </div>
+
+    <!-- Right Team -->
+    <div class="team-section right-team">
+      <img src="{{ url_for('static', filename='images/bb.png') }}" alt="Bengaluru Bulls Logo" class="team-logo">
+      <h3 class="team-name">Bengaluru Bulls</h3>
+    </div>
+  </div>
+
+</section>
+{% endblock %}

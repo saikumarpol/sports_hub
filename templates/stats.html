@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% block title %}Sports Hub – Stats{% endblock %}
+{% block content %}
+
+<!-- Points Table -->
+<section class="container">
+  <h2 class="section-title">PKL Season 12 – Points Table</h2>
+  <div class="stats-table-wrapper">
+    <table class="stats-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Team</th>
+          <th>Matches</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>U Mumba</td><td>10</td><td>8</td><td>2</td><td>40</td></tr>
+        <tr><td>2</td><td>Puneri Paltan</td><td>10</td><td>7</td><td>3</td><td>35</td></tr>
+        <tr><td>3</td><td>Tamil Thalaivas</td><td>10</td><td>5</td><td>5</td><td>28</td></tr>
+        <tr><td>4</td><td>Patna Pirates</td><td>10</td><td>4</td><td>6</td><td>22</td></tr>
+        <tr><td>5</td><td>Bengaluru Bulls</td><td>10</td><td>3</td><td>7</td><td>18</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Teams Section -->
+<section class="container">
+  <h2 class="section-title">Explore Teams</h2>
+  <div class="dropdown-section">
+    <label for="team-select">Select a Team:</label>
+    <select id="team-select">
+      <option value="">-- Select Team --</option>
+      <option value="umumba">U Mumba</option>
+      <option value="puneri">Puneri Paltan</option>
+      <option value="thalaivas">Tamil Thalaivas</option>
+      <option value="patna">Patna Pirates</option>
+      <option value="bulls">Bengaluru Bulls</option>
+    </select>
+  </div>
+
+  <div id="team-info" class="stats-card hidden">
+    <h3 id="team-name"></h3>
+    <p id="team-details"></p>
+    <div id="team-extra"></div>
+    <div class="chart-area small-chart">
+      <canvas id="teamChart"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- Players Section -->
+<section class="container">
+  <h2 class="section-title">Explore Players</h2>
+  <div class="dropdown-section">
+    <label for="player-select">Select a Player:</label>
+    <select id="player-select">
+      <option value="">-- Select Player --</option>
+      <option value="pardeep">Pardeep Narwal</option>
+      <option value="maninder">Maninder Singh</option>
+      <option value="ajinkya">Ajinkya Pawar</option>
+      <option value="fazel">Fazel Atrachali</option>
+      <option value="naveen">Naveen Kumar</option>
+    </select>
+  </div>
+
+  <div id="player-info" class="stats-card hidden">
+    <h3 id="player-name"></h3>
+    <p id="player-details"></p>
+    <div id="player-extra"></div>
+    <div class="chart-area small-chart">
+      <canvas id="playerChart"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // TEAM DATA
+  const teamData = {
+    umumba: {
+      name: "U Mumba",
+      details: "Matches: 10 | Wins: 8 | Losses: 2 | Points: 40",
+      stats: [8, 2],
+      extra: `
+        <h4>Latest News</h4>
+        <p>U Mumba announced a new captain and signed two young raiders for Season 12.</p>
+        <h4>Season Outlook</h4>
+        <p>Focused on defensive consistency with new coaching staff.</p>
+      `
+    },
+    puneri: {
+      name: "Puneri Paltan",
+      details: "Matches: 10 | Wins: 7 | Losses: 3 | Points: 35",
+      stats: [7, 3],
+      extra: `
+        <h4>Latest News</h4>
+        <p>Puneri Paltan retained its star raider and added two all-rounders.</p>
+        <h4>Season Outlook</h4>
+        <p>Aiming for a strong playoff run with aggressive strategies.</p>
+      `
+    },
+    thalaivas: {
+      name: "Tamil Thalaivas",
+      details: "Matches: 10 | Wins: 5 | Losses: 5 | Points: 28",
+      stats: [5, 5],
+      extra: `
+        <h4>Latest News</h4>
+        <p>Tamil Thalaivas signed young defenders to strengthen the backline.</p>
+        <h4>Season Outlook</h4>
+        <p>Focus is on balancing experienced raiders with new talent.</p>
+      `
+    },
+    patna: {
+      name: "Patna Pirates",
+      details: "Matches: 10 | Wins: 4 | Losses: 6 | Points: 22",
+      stats: [4, 6],
+      extra: `
+        <h4>Latest News</h4>
+        <p>Patna Pirates brought in a new foreign all-rounder for balance.</p>
+        <h4>Season Outlook</h4>
+        <p>They aim to bounce back stronger after mixed results.</p>
+      `
+    },
+    bulls: {
+      name: "Bengaluru Bulls",
+      details: "Matches: 10 | Wins: 3 | Losses: 7 | Points: 18",
+      stats: [3, 7],
+      extra: `
+        <h4>Latest News</h4>
+        <p>Bulls have invested in young raiders and defensive specialists.</p>
+        <h4>Season Outlook</h4>
+        <p>Rebuilding phase with focus on long-term growth.</p>
+      `
+    }
+  };
+
+  // PLAYER DATA
+  const playerData = {
+    pardeep: {
+      name: "Pardeep Narwal",
+      details: "Matches: 12 | Raid: 120 | Tackle: 15 | Bonus: 10",
+      stats: [120, 15, 10],
+      extra: `
+        <h4>Latest Match</h4>
+        <p>Scored 15 raid points against Tamil Thalaivas.</p>
+        <h4>Achievements</h4>
+        <ul>
+          <li>Most raid points in PKL history</li>
+          <li>Multiple Super 10s this season</li>
+        </ul>
+      `
+    },
+    maninder: {
+      name: "Maninder Singh",
+      details: "Matches: 11 | Raid: 98 | Tackle: 10 | Bonus: 8",
+      stats: [98, 10, 8],
+      extra: `
+        <h4>Latest Match</h4>
+        <p>Led Bengal Warriors with 12 points in comeback victory.</p>
+        <h4>Achievements</h4>
+        <ul>
+          <li>Captain of Bengal Warriors</li>
+          <li>Ranked 2nd in raid points this season</li>
+        </ul>
+      `
+    },
+    ajinkya: {
+      name: "Ajinkya Pawar",
+      details: "Matches: 10 | Raid: 105 | Tackle: 12 | Bonus: 7",
+      stats: [105, 12, 7],
+      extra: `
+        <h4>Latest Match</h4>
+        <p>Scored 9 raid points against Patna Pirates.</p>
+        <h4>Achievements</h4>
+        <ul>
+          <li>Top raider of Tamil Thalaivas</li>
+        </ul>
+      `
+    },
+    fazel: {
+      name: "Fazel Atrachali",
+      details: "Matches: 12 | Raid: 20 | Tackle: 55 | Bonus: 5",
+      stats: [20, 55, 5],
+      extra: `
+        <h4>Latest Match</h4>
+        <p>4 successful tackles against Puneri Paltan.</p>
+        <h4>Achievements</h4>
+        <ul>
+          <li>Most successful defender in PKL history</li>
+        </ul>
+      `
+    },
+    naveen: {
+      name: "Naveen Kumar",
+      details: "Matches: 9 | Raid: 110 | Tackle: 5 | Bonus: 12",
+      stats: [110, 5, 12],
+      extra: `
+        <h4>Latest Match</h4>
+        <p>Scored 14 raid points in Dabang Delhi’s last game.</p>
+        <h4>Achievements</h4>
+        <ul>
+          <li>Known as 'Naveen Express'</li>
+          <li>Fastest to 600 raid points</li>
+        </ul>
+      `
+    }
+  };
+
+  // Team Dropdown
+  document.getElementById("team-select").addEventListener("change", function() {
+    const team = this.value;
+    if (team && teamData[team]) {
+      const data = teamData[team];
+      document.getElementById("team-info").classList.remove("hidden");
+      document.getElementById("team-name").innerText = data.name;
+      document.getElementById("team-details").innerText = data.details;
+      document.getElementById("team-extra").innerHTML = data.extra;
+
+      const ctx = document.getElementById("teamChart").getContext("2d");
+      if (window.teamChartInstance) window.teamChartInstance.destroy();
+      window.teamChartInstance = new Chart(ctx, {
+        type: "pie",
+        data: { labels: ["Wins", "Losses"], datasets: [{ data: data.stats, backgroundColor: ["#28a745", "#dc3545"] }] }
+      });
+    } else {
+      document.getElementById("team-info").classList.add("hidden");
+    }
+  });
+
+  // Player Dropdown
+  document.getElementById("player-select").addEventListener("change", function() {
+    const player = this.value;
+    if (player && playerData[player]) {
+      const data = playerData[player];
+      document.getElementById("player-info").classList.remove("hidden");
+      document.getElementById("player-name").innerText = data.name;
+      document.getElementById("player-details").innerText = data.details;
+      document.getElementById("player-extra").innerHTML = data.extra;
+
+      const ctx = document.getElementById("playerChart").getContext("2d");
+      if (window.playerChartInstance) window.playerChartInstance.destroy();
+      window.playerChartInstance = new Chart(ctx, {
+        type: "pie",
+        data: { labels: ["Raid Points", "Tackle Points", "Bonus Points"], datasets: [{ data: data.stats, backgroundColor: ["#007bff", "#28a745", "#ffc107"] }] }
+      });
+    } else {
+      document.getElementById("player-info").classList.add("hidden");
+    }
+  });
+</script>
+{% endblock %}

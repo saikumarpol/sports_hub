@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Sports Hub – News{% endblock %}
+{% block content %}
+<section class="container">
+  <h2 class="section-title">Latest Kabaddi News – Season 12</h2>
+  <p>Stay updated with all the action and highlights from PKL Season 12.</p>
+
+  <div class="news-grid">
+    <!-- News Card: U Mumba Victory -->
+    <div class="news-card">
+      <img src="https://static.toiimg.com/thumb/msid-123617924,width-600,height-400,resizemode-75/123617924.jpg"
+           alt="U Mumba vs Tamil Thalaivas" class="news-img">
+      <h3>U Mumba Edge Tamil Thalaivas 36–33</h3>
+      <p>In a tense battle, U Mumba clinched victory with Deswal’s Super 10 leading the charge.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+
+    <!-- News Card: Puneri Paltan Tiebreaker Win -->
+    <div class="news-card">
+      <img src="https://static.toiimg.com/thumb/msid-123590242,width-600,height-400,resizemode-75/123590242.jpg"
+           alt="Puneri Paltan vs Bengaluru Bulls" class="news-img">
+      <h3>Puneri Paltan Wins in 6–4 Tiebreaker</h3>
+      <p>Puneri Paltan battled to a 32–32 draw, then edged out Bengaluru Bulls in a dramatic tiebreaker.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+
+    <!-- News Card: Micro Wellness Partnership (local image) -->
+    <div class="news-card">
+      <img src="{{ url_for('static', filename='images/img1.jpg') }}" alt="PKL Season 12" class="news-img">
+      <h3>Micro Wellness Partners with UP Yoddhas</h3>
+      <p>Micro Labs’ OTC arm becomes the official pain relief partner as UP Yoddhas launch jerseys.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+
+    <!-- News Card: New Captain Named (local image) -->
+    <div class="news-card">
+      <img src="{{ url_for('static', filename='images/img2.webp') }}" alt="Sumit Sangwan Captain" class="news-img">
+      <h3>Sumit Sangwan Appointed Captain</h3>
+      <p>UP Yoddhas announce Sumit Sangwan as captain and retain 13 core players ahead of the new season.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+
+    <!-- News Card: Bhojpuri Commentary Addition (local image) -->
+    <div class="news-card">
+      <img src="{{ url_for('static', filename='images/img3.jpg') }}" alt="Bhojpuri Commentary by Ravi Kishan" class="news-img">
+      <h3>Ravi Kishan in Commentary Box</h3>
+      <p>Bhojpuri commentary by actor-MP Ravi Kishan added to enhance regional engagement during the opening.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Sports Hub - Home{% endblock %}
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to Sports Hub</h1>
+            <p>Your ultimate destination for the latest sports news, live scores, and comprehensive statistics.</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('news') }}" class="btn">Latest News</a>
+                <a href="{{ url_for('scores') }}" class="btn btn-secondary">Live Scores</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📰</div>
+                    <h3>Latest News</h3>
+                    <p>Stay updated with breaking news, transfer updates, and exclusive interviews.</p>
+                    <a href="{{ url_for('news') }}" class="btn">Read News</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Live Scores</h3>
+                    <p>Get real-time scores and updates from ongoing matches across multiple sports.</p>
+                    <a href="{{ url_for('scores') }}" class="btn">View Scores</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Player Stats</h3>
+                    <p>Comprehensive statistics and performance data for your favorite players and favorite teams.</p>
+                    <a href="{{ url_for('stats') }}" class="btn">View Stats</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access all features seamlessly across desktop, tablet, and mobile devices.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
